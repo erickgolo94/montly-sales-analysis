@@ -1,6 +1,37 @@
 #Load the CSV
+import pandas as pd
+
+#pd.set_option('display.max_rows', None)
+df = pd.read_csv(r'E:\Analytics Tasks from Bro\Monthly Sales.csv', parse_dates=['Date'])
+print(f"Total rows: {len(df)}")
+df.head()
+
+
 #Step 1 : Extract Month(in text format, like january, February)
+df['Month'] = df['Date'].dt.strftime('%B')
+df.head()
+
 #Step 2: Compute Total per transaction (Quality * Unit Price)
+df['Total'] = df['Quantity'] * df['Unit Price']
+df.head()
+
 #Step 3 Group by Month and Sum Total Sales
+monthly_sales = df.groupby('Month')['Total'].sum()
+print(monthly_sales)
+
 #Step 4: (Optional) Arrange months in calendar order
-Step 5: Visualize Monthly Sales Using Matplotlib
+month_order = ['January','February','March','April','May','June','July','August','September','October','November','December']
+
+monthly_sales = monthly_sales.reindex(month_order)
+print(monthly_sales)
+
+#Step 5: Visualize Monthly Sales Using Matplotlib
+import matplotlib.pyplot as plt
+
+monthly_sales.plot(kind='line', marker='o', title='Monthly Sales (2024)')
+plt.ylabel('Total Sales (₱)')
+plt.xlabel('Month')
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
