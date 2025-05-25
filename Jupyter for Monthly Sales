@@ -1,0 +1,6 @@
+#Load the CSV
+#Step 1 : Extract Month(in text format, like january, February)
+#Step 2: Compute Total per transaction (Quality * Unit Price)
+#Step 3 Group by Month and Sum Total Sales
+#Step 4: (Optional) Arrange months in calendar order
+Step 5: Visualize Monthly Sales Using Matplotlib
